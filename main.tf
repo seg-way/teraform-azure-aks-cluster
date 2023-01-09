@@ -55,14 +55,15 @@ module "aks_cluster_name" {
   ingress_application_gateway_subnet_id = var.subnet_id_ag
   local_account_disabled                = true
 
-  # net_profile_dns_service_ip     = "10.0.0.10"
-  # net_profile_docker_bridge_cidr = "170.10.0.1/16"
-  # net_profile_service_cidr       = "10.0.0.0/16"
-  network_plugin  = "azure"
-  network_policy  = "azure"
-  os_disk_size_gb = 60
-  sku_tier        = "Paid"
-  vnet_subnet_id  = var.subnet_id
+  net_profile_dns_service_ip     = "10.0.0.10"
+  net_profile_docker_bridge_cidr = "170.10.0.1/16"
+  net_profile_service_cidr       = "10.0.0.0/16"
+  network_plugin                 = "azure"
+  network_policy                 = "azure"
+  os_disk_size_gb                = 60
+  sku_tier                       = "Paid"
+  vnet_subnet_id                 = var.subnet_id
 
+  agents_size = "Standard_B2s"
   agents_tags = var.tags
 }
