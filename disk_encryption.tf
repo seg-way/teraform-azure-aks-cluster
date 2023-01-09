@@ -80,13 +80,13 @@ resource "azurerm_key_vault_access_policy" "des" {
     "WrapKey",
     "UnwrapKey"
   ]
-  
+
 }
 
 
 resource "azurerm_key_vault_access_policy" "current_user" {
   key_vault_id = azurerm_key_vault.des_vault.id
-  object_id    = coalesce(azurerm_user_assigned_identity.aks.principal_id, data.azurerm_client_config.current.object_id)
+  object_id    = data.azurerm_client_config.current.object_id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   key_permissions = [
     "Get",
