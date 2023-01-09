@@ -27,6 +27,8 @@ resource "azurerm_key_vault" "des_vault" {
     default_action = "Deny"
     ip_rules       = [local.public_ip]
   }
+
+  tags = var.tags
 }
 
 resource "azurerm_key_vault_key" "des_key" {
@@ -51,6 +53,9 @@ resource "azurerm_key_vault_key" "des_key" {
   lifecycle {
     ignore_changes = [expiration_date]
   }
+
+  tags = var.tags
+
 }
 
 resource "azurerm_disk_encryption_set" "des" {
@@ -62,6 +67,8 @@ resource "azurerm_disk_encryption_set" "des" {
   identity {
     type = "SystemAssigned"
   }
+  tags = var.tags
+
 }
 
 resource "azurerm_key_vault_access_policy" "des" {
@@ -73,6 +80,7 @@ resource "azurerm_key_vault_access_policy" "des" {
     "WrapKey",
     "UnwrapKey"
   ]
+  
 }
 
 
