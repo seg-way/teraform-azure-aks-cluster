@@ -1,5 +1,5 @@
 variable "prefix" {
-  type = string
+  type        = string
   description = "(optional) describe your variable"
 }
 variable "resource_group" {
@@ -15,13 +15,12 @@ variable "tags" {
   description = "(optional) describe your variable"
 }
 variable "subnet_id" {
-  type = string
+  type        = string
   description = "(optional) describe your variable"
 }
 
 
 variable "key_vault_firewall_bypass_ip_cidr" {
-  type = bool
-  default = true
+  default     = null
   description = "(optional) describe your variable"
 }
