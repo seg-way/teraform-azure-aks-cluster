@@ -23,6 +23,10 @@ variable "subnet_id_ag" {
   description = "(optional) describe your variable"
 }
 
+variable "agent_size" {
+  type = string
+  description = "(optional) describe your variable"
+}
 variable "key_vault_firewall_bypass_ip_cidr" {
   default     = null
   description = "(optional) describe your variable"

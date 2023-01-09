@@ -64,6 +64,6 @@ module "aks_cluster_name" {
   sku_tier                       = "Paid"
   vnet_subnet_id                 = var.subnet_id
 
-  agents_size = "standard_d2_v5"
+  agents_size = var.agent_size
   agents_tags = var.tags
 }
