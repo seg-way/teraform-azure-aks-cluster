@@ -52,7 +52,7 @@ module "aks_cluster_name" {
   http_application_routing_enabled        = true
   ingress_application_gateway_enabled     = true
   ingress_application_gateway_name        = "logscale-agw"
-  ingress_application_gateway_subnet_cidr = "10.1.0.0/24"
+  ingress_application_gateway_subnet_cidr = "10.0.250.0/24"
   local_account_disabled                  = true
 
   net_profile_dns_service_ip     = "10.0.0.10"
