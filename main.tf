@@ -1,7 +1,7 @@
 resource "azurerm_user_assigned_identity" "aks" {
-  location            = local.resource_group.location
-  name                = "${random_id.prefix.hex}-identity"
-  resource_group_name = local.resource_group.name
+  location            = var.location
+  name                = "${var.prefix}-identity"
+  resource_group_name = var.resource_group
 }
 
 
@@ -9,7 +9,7 @@ module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
   version = "6.5.0"
 
-  prefix                          = "logscale"
+  prefix                          = var.prefix
   resource_group_name             = var.resource_group
   admin_username                  = null
   azure_policy_enabled            = true

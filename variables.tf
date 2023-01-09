@@ -1,3 +1,7 @@
+variable "prefix" {
+  type = string
+  description = "(optional) describe your variable"
+}
 variable "resource_group" {
   type        = string
   description = "(optional) describe your variable"
@@ -12,5 +16,12 @@ variable "tags" {
 }
 variable "subnet_id" {
   type = string
+  description = "(optional) describe your variable"
+}
+
+
+variable "key_vault_firewall_bypass_ip_cidr" {
+  type = bool
+  default = true
   description = "(optional) describe your variable"
 }
