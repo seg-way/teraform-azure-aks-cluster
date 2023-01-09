@@ -13,7 +13,7 @@ module "aks_cluster_name" {
   resource_group_name             = var.resource_group
   admin_username                  = null
   azure_policy_enabled            = true
-  cluster_name                    = "logscape"
+  cluster_name                    = "logscale"
   disk_encryption_set_id          = azurerm_disk_encryption_set.des.id
   identity_ids                    = [azurerm_user_assigned_identity.aks.id]
   identity_type                   = "UserAssigned"
