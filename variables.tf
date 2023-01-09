@@ -18,9 +18,8 @@ variable "subnet_id" {
   type        = string
   description = "(optional) describe your variable"
 }
-
-variable "subnet_ag" {
-  type        = string
+variable "subnet_id_ag" {
+  type = string
   description = "(optional) describe your variable"
 }
 
