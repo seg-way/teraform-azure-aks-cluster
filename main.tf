@@ -47,22 +47,22 @@ module "aks_cluster_name" {
   agents_type               = "VirtualMachineScaleSets"
   # client_id                               = var.client_id
   # client_secret                           = var.client_secret
-  enable_auto_scaling                     = true
-  enable_host_encryption                  = true
-  http_application_routing_enabled        = true
-  ingress_application_gateway_enabled     = true
-  ingress_application_gateway_name        = "logscale-agw"
-  ingress_application_gateway_subnet_cidr = "10.0.250.0/24"
-  local_account_disabled                  = true
+  enable_auto_scaling                   = true
+  enable_host_encryption                = true
+  http_application_routing_enabled      = true
+  ingress_application_gateway_enabled   = true
+  ingress_application_gateway_name      = "logscale-agw"
+  ingress_application_gateway_subnet_id = var.subnet_id_ag
+  local_account_disabled                = true
 
   # net_profile_dns_service_ip     = "10.0.0.10"
   # net_profile_docker_bridge_cidr = "170.10.0.1/16"
   # net_profile_service_cidr       = "10.0.0.0/16"
-  network_plugin                 = "azure"
-  network_policy                 = "azure"
-  os_disk_size_gb                = 60
-  sku_tier                       = "Paid"
-  vnet_subnet_id                 = var.subnet_id
+  network_plugin  = "azure"
+  network_policy  = "azure"
+  os_disk_size_gb = 60
+  sku_tier        = "Paid"
+  vnet_subnet_id  = var.subnet_id
 
   agents_tags = var.tags
 }

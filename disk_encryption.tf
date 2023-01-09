@@ -91,6 +91,6 @@ resource "azurerm_key_vault_access_policy" "current_user" {
   key_permissions = [
     "Get",
     "Create",
-    "Delete",
+    "Delete","Recover","Release"
   ]
 }

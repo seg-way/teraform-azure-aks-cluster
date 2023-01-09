@@ -19,6 +19,10 @@ variable "subnet_id" {
   description = "(optional) describe your variable"
 }
 
+variable "subnet_ag" {
+  type        = string
+  description = "(optional) describe your variable"
+}
 
 variable "key_vault_firewall_bypass_ip_cidr" {
   default     = null
