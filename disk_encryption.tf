@@ -75,6 +75,7 @@ resource "azurerm_key_vault_access_policy" "des" {
   ]
 }
 
+
 resource "azurerm_key_vault_access_policy" "current_user" {
   key_vault_id = azurerm_key_vault.des_vault.id
   object_id    = coalesce(azurerm_user_assigned_identity.aks.principal_id, data.azurerm_client_config.current.object_id)
