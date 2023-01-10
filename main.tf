@@ -14,7 +14,7 @@ module "aks_cluster_name" {
   admin_username                  = null
   azure_policy_enabled            = true
   cluster_name                    = "logscale"
-  disk_encryption_set_id          = azurerm_disk_encryption_set.des.id
+  disk_encryption_set_id          = var.disk_encryption_set_id
   identity_ids                    = [azurerm_user_assigned_identity.aks.id]
   identity_type                   = "UserAssigned"
   log_analytics_workspace_enabled = false
