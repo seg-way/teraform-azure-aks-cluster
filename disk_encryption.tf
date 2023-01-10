@@ -14,12 +14,12 @@ locals {
 
 resource "azurerm_key_vault" "des_vault" {
   location                    = var.location
-  name                        = "${var.prefix}-kv"
+  name                        = "${var.prefix}"
   resource_group_name         = var.resource_group
   sku_name                    = "premium"
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   enabled_for_disk_encryption = true
-  purge_protection_enabled    = true
+  purge_protection_enabled    = false
   soft_delete_retention_days  = 7
 
   network_acls {
