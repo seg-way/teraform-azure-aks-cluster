@@ -38,7 +38,7 @@ module "aks_cluster_name" {
 
   kubernetes_version        = "1.24" # don't specify the patch version!
   automatic_channel_upgrade = "patch"
-  agents_availability_zones = ["1", "2"]
+  agents_availability_zones = ["1", "2", "3"]
   agents_count              = null
   agents_max_count          = 2
   agents_max_pods           = 100
