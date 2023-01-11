@@ -69,7 +69,7 @@ module "aks_cluster_name" {
 }
 
 
-resource "azurerm_kubernetes_cluster_node_pool" "example" {
+resource "azurerm_kubernetes_cluster_node_pool" "logscale" {
   name                  = "logscale"
   kubernetes_cluster_id = module.aks_cluster_name.aks_id
 
