@@ -79,8 +79,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "example" {
   vm_size = var.agent_size_logscale
 
   enable_auto_scaling = true
-  node_count          = 0
-  min_count           = 0
+  node_count          = 1
+  min_count           = 1
   max_count           = 3
 
   tags = var.tags
