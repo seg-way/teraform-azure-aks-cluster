@@ -40,10 +40,10 @@ module "aks_cluster_name" {
   automatic_channel_upgrade = "patch"
   agents_availability_zones = ["1", "2", "3"]
   agents_count              = null
-  agents_max_count          = 2
+  agents_max_count          = 10
   agents_max_pods           = 100
-  agents_min_count          = 1
-  agents_pool_name          = "testnodepool"
+  agents_min_count          = 3
+  agents_pool_name          = "utilitypool"
   agents_type               = "VirtualMachineScaleSets"
   # client_id                               = var.client_id
   # client_secret                           = var.client_secret
