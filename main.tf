@@ -67,3 +67,13 @@ module "aks_cluster_name" {
   agents_size = var.agent_size
   agents_tags = var.tags
 }
+
+
+resource "azurerm_kubernetes_cluster_node_pool" "example" {
+  name                  = "logscale"
+  kubernetes_cluster_id = module.aks_cluster_name.aks_id
+  vm_size               = var.agent_size_logscale
+  node_count            = 1
+
+  tags = var.tags
+}
