@@ -82,7 +82,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   node_count          = 1
   # min_count           = 0
   max_count     = var.agent_compute_max
-  pod_subnet_id = var.subnet_id
+  vnet_subnet_id  = var.subnet_id
   tags          = var.tags
 }
 resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
@@ -98,6 +98,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   node_count          = 1
   # min_count           = 0
   max_count     = var.agent_nvme_max
-  pod_subnet_id = var.subnet_id
+  vnet_subnet_id  = var.subnet_id
   tags          = var.tags
 }
