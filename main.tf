@@ -42,7 +42,7 @@ module "aks_cluster_name" {
   #agents_count              = null
   agents_max_count = var.agent_size_max
   agents_max_pods  = 100
-  # agents_min_count = 0
+  agents_min_count = 1
   agents_pool_name = "utilitypool"
   agents_type      = "VirtualMachineScaleSets"
   # client_id                               = var.client_id
