@@ -40,7 +40,7 @@ module "aks_cluster_name" {
   automatic_channel_upgrade = "patch"
   agents_availability_zones = ["1", "2", "3"]
   #agents_count              = null
-  agents_max_count = var.agent_size_max
+  agents_max_count = var.agent_max
   agents_max_pods  = 100
   agents_min_count = 1
   agents_pool_name = "system"
@@ -76,12 +76,12 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   enable_host_encryption = true
 
 
-  vm_size = var.agent_size_logscale
+  vm_size = var.agent_compute_size
 
   enable_auto_scaling = true
   node_count          = 1
   # min_count           = 0
-  max_count           = var.agent_size_logscale_max
+  max_count = var.agent_compute_max
 
   tags = var.tags
 }
@@ -92,12 +92,12 @@ resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   enable_host_encryption = true
 
 
-  vm_size = var.agent_size_logscale
+  vm_size = var.agent_nvme_size
 
   enable_auto_scaling = true
   node_count          = 1
   # min_count           = 0
-  max_count           = var.agent_size_logscale_max
+  max_count = var.agent_nvme_max
 
   tags = var.tags
 }
