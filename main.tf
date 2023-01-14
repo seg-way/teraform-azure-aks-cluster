@@ -81,9 +81,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   enable_auto_scaling = true
   node_count          = 1
   # min_count           = 0
-  max_count = var.agent_compute_max
-
-  tags = var.tags
+  max_count     = var.agent_compute_max
+  pod_subnet_id = var.subnet_id
+  tags          = var.tags
 }
 resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   name                  = "nvme"
@@ -97,7 +97,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   enable_auto_scaling = true
   node_count          = 1
   # min_count           = 0
-  max_count = var.agent_nvme_max
-
-  tags = var.tags
+  max_count     = var.agent_nvme_max
+  pod_subnet_id = var.subnet_id
+  tags          = var.tags
 }
