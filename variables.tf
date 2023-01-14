@@ -27,8 +27,17 @@ variable "agent_size" {
   type        = string
   description = "(optional) describe your variable"
 }
+variable "agent_size_max" {
+  type = number
+  description = "(optional) describe your variable"
+}
+
 variable "agent_size_logscale" {
   type = string
+  description = "(optional) describe your variable"
+}
+variable "agent_size_logscale_max" {
+  type = number
   description = "(optional) describe your variable"
 }
 variable "disk_encryption_set_id" {

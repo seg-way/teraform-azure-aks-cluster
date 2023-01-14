@@ -39,12 +39,12 @@ module "aks_cluster_name" {
   kubernetes_version        = "1.24" # don't specify the patch version!
   automatic_channel_upgrade = "patch"
   agents_availability_zones = ["1", "2", "3"]
-  agents_count              = null
-  agents_max_count          = 10
-  agents_max_pods           = 100
-  agents_min_count          = 3
-  agents_pool_name          = "utilitypool"
-  agents_type               = "VirtualMachineScaleSets"
+  #agents_count              = null
+  agents_max_count = var.agent_size_max
+  agents_max_pods  = 100
+  agents_min_count = 0
+  agents_pool_name = "utilitypool"
+  agents_type      = "VirtualMachineScaleSets"
   # client_id                               = var.client_id
   # client_secret                           = var.client_secret
   enable_auto_scaling                   = true
@@ -80,8 +80,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "logscale" {
 
   enable_auto_scaling = true
   node_count          = 1
-  min_count           = 1
-  max_count           = 3
+  min_count           = 0
+  max_count           = var.agent_size_logscale_max
 
   tags = var.tags
 }
