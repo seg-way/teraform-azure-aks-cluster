@@ -43,7 +43,7 @@ module "aks_cluster_name" {
   agents_max_count = var.agent_size_max
   agents_max_pods  = 100
   agents_min_count = 1
-  agents_pool_name = "utilitypool"
+  agents_pool_name = "system"
   agents_type      = "VirtualMachineScaleSets"
   # client_id                               = var.client_id
   # client_secret                           = var.client_secret
@@ -69,8 +69,24 @@ module "aks_cluster_name" {
 }
 
 
-resource "azurerm_kubernetes_cluster_node_pool" "logscale" {
-  name                  = "logscale"
+resource "azurerm_kubernetes_cluster_node_pool" "compute" {
+  name                  = "compute"
+  kubernetes_cluster_id = module.aks_cluster_name.aks_id
+
+  enable_host_encryption = true
+
+
+  vm_size = var.agent_size_logscale
+
+  enable_auto_scaling = true
+  node_count          = 1
+  # min_count           = 0
+  max_count           = var.agent_size_logscale_max
+
+  tags = var.tags
+}
+resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
+  name                  = "nvme"
   kubernetes_cluster_id = module.aks_cluster_name.aks_id
 
   enable_host_encryption = true
