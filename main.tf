@@ -14,7 +14,7 @@ module "aks_cluster_name" {
   admin_username                  = null
   azure_policy_enabled            = true
   cluster_name                    = "logscale"
-  disk_encryption_set_id          = var.disk_encryption_set_id
+  # disk_encryption_set_id          = var.disk_encryption_set_id
   identity_ids                    = [azurerm_user_assigned_identity.aks.id]
   identity_type                   = "UserAssigned"
   log_analytics_workspace_enabled = false
@@ -48,7 +48,7 @@ module "aks_cluster_name" {
   # client_id                               = var.client_id
   # client_secret                           = var.client_secret
   enable_auto_scaling                   = true
-  enable_host_encryption                = true
+  # enable_host_encryption                = true
   http_application_routing_enabled      = true
   ingress_application_gateway_enabled   = true
   ingress_application_gateway_name      = "logscale-agw"
@@ -73,7 +73,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   name                  = "compute"
   kubernetes_cluster_id = module.aks_cluster_name.aks_id
 
-  enable_host_encryption = true
+  # enable_host_encryption = true
 
 
   vm_size = var.agent_compute_size
@@ -89,7 +89,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   name                  = "nvme"
   kubernetes_cluster_id = module.aks_cluster_name.aks_id
 
-  enable_host_encryption = true
+  # enable_host_encryption = true
 
 
   vm_size = var.agent_nvme_size
