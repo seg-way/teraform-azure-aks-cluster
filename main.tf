@@ -9,11 +9,11 @@ module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
   version = "6.5.0"
 
-  prefix                          = var.prefix
-  resource_group_name             = var.resource_group
-  admin_username                  = null
-  azure_policy_enabled            = true
-  cluster_name                    = "logscale"
+  prefix               = var.prefix
+  resource_group_name  = var.resource_group
+  admin_username       = null
+  azure_policy_enabled = true
+  cluster_name         = "logscale"
   # disk_encryption_set_id          = var.disk_encryption_set_id
   identity_ids                    = [azurerm_user_assigned_identity.aks.id]
   identity_type                   = "UserAssigned"
@@ -47,7 +47,7 @@ module "aks_cluster_name" {
   agents_type      = "VirtualMachineScaleSets"
   # client_id                               = var.client_id
   # client_secret                           = var.client_secret
-  enable_auto_scaling                   = true
+  enable_auto_scaling = true
   # enable_host_encryption                = true
   http_application_routing_enabled      = true
   ingress_application_gateway_enabled   = true
@@ -81,9 +81,14 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   enable_auto_scaling = true
   node_count          = 1
   # min_count           = 0
-  max_count     = var.agent_compute_max
-  vnet_subnet_id  = var.subnet_id
-  tags          = var.tags
+  max_count      = var.agent_compute_max
+  vnet_subnet_id = var.subnet_id
+  
+  node_taints = [
+    "workloadClass=compute"
+  ]
+
+  tags           = var.tags
 }
 resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   name                  = "nvme"
@@ -97,7 +102,12 @@ resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   enable_auto_scaling = true
   node_count          = 1
   # min_count           = 0
-  max_count     = var.agent_nvme_max
-  vnet_subnet_id  = var.subnet_id
-  tags          = var.tags
+  max_count      = var.agent_nvme_max
+  vnet_subnet_id = var.subnet_id
+
+  node_taints = [
+    "workloadClass=nvme"
+  ]
+
+  tags = var.tags
 }
