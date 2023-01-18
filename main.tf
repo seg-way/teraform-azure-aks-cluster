@@ -79,8 +79,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   vm_size = var.agent_compute_size
 
   enable_auto_scaling = true
-  node_count          = 1
+  # node_count          = 1
   # min_count           = 0
+  min_count           = var.agent_compute_min
   max_count      = var.agent_compute_max
   vnet_subnet_id = var.subnet_id
   
@@ -100,8 +101,8 @@ resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   vm_size = var.agent_nvme_size
 
   enable_auto_scaling = true
-  node_count          = 1
-  # min_count           = 0
+  # node_count          = 1
+  min_count           = var.agent_nvme_min
   max_count      = var.agent_nvme_max
   vnet_subnet_id = var.subnet_id
 
