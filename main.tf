@@ -85,7 +85,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   vnet_subnet_id = var.subnet_id
   
   node_taints = [
-    "workloadClass=compute"
+    "workloadClass=compute:NoSchedule"
   ]
 
   tags           = var.tags
@@ -106,7 +106,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
   vnet_subnet_id = var.subnet_id
 
   node_taints = [
-    "workloadClass=nvme"
+    "workloadClass=nvme:NoSchedule"
   ]
 
   tags = var.tags
