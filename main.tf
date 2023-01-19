@@ -85,9 +85,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "compute" {
   max_count      = var.agent_compute_max
   vnet_subnet_id = var.subnet_id
   
-  node_taints = [
-    "workloadClass=compute:NoSchedule"
-  ]
+  # node_taints = [
+  #   "workloadClass=compute:NoSchedule"
+  # ]
 
   tags           = var.tags
 }
