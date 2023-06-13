@@ -1,3 +1,7 @@
+variable "cluster_name" {
+  type = string
+  description = "(optional) describe your variable"
+}
 variable "prefix" {
   type        = string
   description = "(optional) describe your variable"
@@ -60,5 +64,25 @@ variable "agent_nvme_max" {
 }
 variable "disk_encryption_set_id" {
   default     = null
+  description = "(optional) describe your variable"
+}
+variable "kubernetes_version" {
+  type = string
+  default = "1.27"
+  description = "(optional) describe your variable"
+}
+variable "ingress_application_gateway_enabled" {
+  type = bool
+  default = false
+  description = "(optional) describe your variable"
+}
+variable "http_application_routing_enabled" {
+  type = bool
+  default = false
+  description = "(optional) describe your variable"
+}
+variable "sku_tier" {
+  type = string
+  default = "Free"
   description = "(optional) describe your variable"
 }

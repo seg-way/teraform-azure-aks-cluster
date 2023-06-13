@@ -7,13 +7,13 @@ resource "azurerm_user_assigned_identity" "aks" {
 
 module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
-  version = "6.5.0"
+  version = "6.8.0"
 
   prefix               = var.prefix
   resource_group_name  = var.resource_group
   admin_username       = null
   azure_policy_enabled = true
-  cluster_name         = "logscale"
+  cluster_name         = var.cluster_name
   # disk_encryption_set_id          = var.disk_encryption_set_id
   identity_ids                    = [azurerm_user_assigned_identity.aks.id]
   identity_type                   = "UserAssigned"
@@ -34,9 +34,7 @@ module "aks_cluster_name" {
   role_based_access_control_enabled = true
 
 
-
-
-  kubernetes_version        = "1.24" # don't specify the patch version!
+  kubernetes_version        = var.kubernetes_version # don't specify the patch version!
   automatic_channel_upgrade = "patch"
   agents_availability_zones = ["1", "2", "3"]
   #agents_count              = null
@@ -49,9 +47,9 @@ module "aks_cluster_name" {
   # client_secret                           = var.client_secret
   enable_auto_scaling = true
   # enable_host_encryption                = true
-  http_application_routing_enabled      = true
-  ingress_application_gateway_enabled   = true
-  ingress_application_gateway_name      = "logscale-agw"
+  http_application_routing_enabled      = var.http_application_routing_enabled
+  ingress_application_gateway_enabled   = var.ingress_application_gateway_enabled
+  ingress_application_gateway_name      = "${var.cluster_name}-agw"
   ingress_application_gateway_subnet_id = var.subnet_id_ag
   # local_account_disabled                = true
 
@@ -61,54 +59,10 @@ module "aks_cluster_name" {
   network_plugin                 = "azure"
   network_policy                 = "azure"
   os_disk_size_gb                = 60
-  sku_tier                       = "Paid"
+  sku_tier                       = var.sku_tier
   vnet_subnet_id                 = var.subnet_id
 
   agents_size = var.agent_size
   agents_tags = var.tags
 }
 
-
-resource "azurerm_kubernetes_cluster_node_pool" "compute" {
-  name                  = "compute"
-  kubernetes_cluster_id = module.aks_cluster_name.aks_id
-
-  # enable_host_encryption = true
-
-
-  vm_size = var.agent_compute_size
-
-  enable_auto_scaling = true
-  # node_count          = 1
-  # min_count           = 0
-  min_count           = var.agent_compute_min
-  max_count      = var.agent_compute_max
-  vnet_subnet_id = var.subnet_id
-  
-  # node_taints = [
-  #   "workloadClass=compute:NoSchedule"
-  # ]
-
-  tags           = var.tags
-}
-resource "azurerm_kubernetes_cluster_node_pool" "nvme" {
-  name                  = "nvme"
-  kubernetes_cluster_id = module.aks_cluster_name.aks_id
-
-  # enable_host_encryption = true
-
-
-  vm_size = var.agent_nvme_size
-
-  enable_auto_scaling = true
-  # node_count          = 1
-  min_count           = var.agent_nvme_min
-  max_count      = var.agent_nvme_max
-  vnet_subnet_id = var.subnet_id
-
-  node_taints = [
-    "workloadClass=nvme:NoSchedule"
-  ]
-
-  tags = var.tags
-}
