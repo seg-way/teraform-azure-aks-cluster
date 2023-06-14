@@ -72,7 +72,7 @@ module "aks_cluster_name" {
 resource "azurerm_role_assignment" "aks_subnet" {
   scope                = var.subnet_id
   role_definition_name = "Network Contributor"
-  principal_id = module.aks_cluster_name.cluster_identity
+  principal_id = module.aks_cluster_name.cluster_identity.principal_id
   # principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
 }
 
