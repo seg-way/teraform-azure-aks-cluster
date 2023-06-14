@@ -1,9 +1,8 @@
-resource "azurerm_user_assigned_identity" "aks" {
-  location            = var.location
-  name                = "${var.prefix}-identity"
-  resource_group_name = var.resource_group
-}
+resource "azuread_group" "admins" {
+  display_name = "${var.prefix}-admins"
+  security_enabled = true
 
+}
 
 module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
@@ -15,8 +14,7 @@ module "aks_cluster_name" {
   admin_username       = null
   azure_policy_enabled = true
 
-  identity_ids                    = [azurerm_user_assigned_identity.aks.id]
-  identity_type                   = "UserAssigned"
+  identity_type                   = "SystemAssigned"
   log_analytics_workspace_enabled = false
 
   maintenance_window = {
@@ -31,9 +29,13 @@ module "aks_cluster_name" {
   # net_profile_pod_cidr              = "10.1.0.0/16"
   private_cluster_enabled           = false
   rbac_aad_managed                  = true
+  rbac_aad_azure_rbac_enabled       = true
   role_based_access_control_enabled = true
   public_network_access_enabled     = false
 
+  rbac_aad_admin_group_object_ids = [
+    azuread_group.admins.object_id
+  ]
 
   kubernetes_version        = var.kubernetes_version # don't specify the patch version!
   automatic_channel_upgrade = "patch"
@@ -66,3 +68,16 @@ module "aks_cluster_name" {
   agents_tags = var.tags
 }
 
+
+resource "azurerm_role_assignment" "aks_subnet" {
+  scope                = var.subnet_id
+  role_definition_name = "Network Contributor"
+  principal_id = module.aks_cluster_name.cluster_identity
+  # principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
+}
+
+# resource "azurerm_role_assignment" "aks_acr" {
+#   scope                = var.container_registry_id
+#   role_definition_name = "AcrPull"
+#   principal_id         = azurerm_kubernetes_cluster.aks.kubelet_identity[0].object_id
+# }
