@@ -1,7 +1,3 @@
-variable "cluster_name" {
-  type = string
-  description = "(optional) describe your variable"
-}
 variable "prefix" {
   type        = string
   description = "(optional) describe your variable"
@@ -36,36 +32,6 @@ variable "agent_max" {
   description = "(optional) describe your variable"
 }
 
-variable "agent_compute_size" {
-  type = string
-  description = "(optional) describe your variable"
-}
-variable "agent_compute_min" {
-  type = number
-  default = 1
-  description = "(optional) describe your variable"
-}
-variable "agent_compute_max" {
-  type = number
-  description = "(optional) describe your variable"
-}
-variable "agent_nvme_size" {
-  type = string
-  description = "(optional) describe your variable"
-}
-variable "agent_nvme_min" {
-  type = number
-  default = 1
-  description = "(optional) describe your variable"
-}
-variable "agent_nvme_max" {
-  type = number
-  description = "(optional) describe your variable"
-}
-variable "disk_encryption_set_id" {
-  default     = null
-  description = "(optional) describe your variable"
-}
 variable "kubernetes_version" {
   type = string
   default = "1.27"

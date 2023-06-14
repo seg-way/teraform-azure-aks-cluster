@@ -9,12 +9,12 @@ module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
   version = "6.8.0"
 
-  prefix               = var.prefix
+  prefix = var.prefix
+
   resource_group_name  = var.resource_group
   admin_username       = null
   azure_policy_enabled = true
-  cluster_name         = var.cluster_name
-  # disk_encryption_set_id          = var.disk_encryption_set_id
+
   identity_ids                    = [azurerm_user_assigned_identity.aks.id]
   identity_type                   = "UserAssigned"
   log_analytics_workspace_enabled = false
@@ -49,7 +49,7 @@ module "aks_cluster_name" {
   # enable_host_encryption                = true
   http_application_routing_enabled      = var.http_application_routing_enabled
   ingress_application_gateway_enabled   = var.ingress_application_gateway_enabled
-  ingress_application_gateway_name      = "${var.cluster_name}-agw"
+  ingress_application_gateway_name      = "${var.prefix}-agw"
   ingress_application_gateway_subnet_id = var.subnet_id_ag
   # local_account_disabled                = true
 
