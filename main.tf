@@ -32,6 +32,7 @@ module "aks_cluster_name" {
   private_cluster_enabled           = false
   rbac_aad_managed                  = true
   role_based_access_control_enabled = true
+  public_network_access_enabled     = false
 
 
   kubernetes_version        = var.kubernetes_version # don't specify the patch version!
@@ -51,15 +52,15 @@ module "aks_cluster_name" {
   ingress_application_gateway_enabled   = var.ingress_application_gateway_enabled
   ingress_application_gateway_name      = "${var.prefix}-agw"
   ingress_application_gateway_subnet_id = var.subnet_id_ag
-  # local_account_disabled                = true
+  local_account_disabled                = true
 
-  net_profile_dns_service_ip     = "10.0.0.10"
-  net_profile_service_cidr       = "10.0.0.0/16"
-  network_plugin                 = "azure"
-  network_policy                 = "azure"
-  os_disk_size_gb                = 60
-  sku_tier                       = var.sku_tier
-  vnet_subnet_id                 = var.subnet_id
+  net_profile_dns_service_ip = "10.0.0.10"
+  net_profile_service_cidr   = "10.0.0.0/16"
+  network_plugin             = "azure"
+  network_policy             = "azure"
+  os_disk_size_gb            = 60
+  sku_tier                   = var.sku_tier
+  vnet_subnet_id             = var.subnet_id
 
   agents_size = var.agent_size
   agents_tags = var.tags
