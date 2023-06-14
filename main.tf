@@ -1,5 +1,5 @@
 resource "azuread_group" "admins" {
-  display_name = "${var.prefix}-admins"
+  display_name     = "${var.prefix}-admins"
   security_enabled = true
 
 }
@@ -55,14 +55,15 @@ module "aks_cluster_name" {
   ingress_application_gateway_name      = "${var.prefix}-agw"
   ingress_application_gateway_subnet_id = var.subnet_id_ag
   local_account_disabled                = true
-
-  net_profile_dns_service_ip = "10.0.0.10"
-  net_profile_service_cidr   = "10.0.0.0/16"
-  network_plugin             = "azure"
-  network_policy             = "azure"
-  os_disk_size_gb            = 60
-  sku_tier                   = var.sku_tier
-  vnet_subnet_id             = var.subnet_id
+  workload_identity_enabled             = true
+  oidc_issuer_enabled                   = true
+  net_profile_dns_service_ip            = "10.0.0.10"
+  net_profile_service_cidr              = "10.0.0.0/16"
+  network_plugin                        = "azure"
+  network_policy                        = "azure"
+  os_disk_size_gb                       = 60
+  sku_tier                              = var.sku_tier
+  vnet_subnet_id                        = var.subnet_id
 
   agents_size = var.agent_size
   agents_tags = var.tags
@@ -72,7 +73,7 @@ module "aks_cluster_name" {
 resource "azurerm_role_assignment" "aks_subnet" {
   scope                = var.subnet_id
   role_definition_name = "Network Contributor"
-  principal_id = module.aks_cluster_name.cluster_identity.principal_id
+  principal_id         = module.aks_cluster_name.cluster_identity.principal_id
   # principal_id         = azurerm_kubernetes_cluster.aks.identity[0].principal_id
 }
 
