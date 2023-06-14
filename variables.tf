@@ -34,7 +34,7 @@ variable "agent_max" {
 
 variable "kubernetes_version" {
   type = string
-  default = "1.27"
+  default = "1.26"
   description = "(optional) describe your variable"
 }
 variable "ingress_application_gateway_enabled" {
