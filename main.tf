@@ -29,9 +29,9 @@ module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
   version = "6.8.0"
 
-  prefix               = var.prefix
-  resource_group_name  = var.resource_group
-  # admin_username       = null
+  prefix              = var.prefix
+  resource_group_name = var.resource_group
+  admin_username       = null
   azure_policy_enabled = true
 
   log_analytics_workspace_enabled = false
@@ -43,7 +43,7 @@ module "aks_cluster_name" {
 
   disk_encryption_set_id = azurerm_disk_encryption_set.des.id
 
-  public_network_access_enabled = false
+  public_network_access_enabled = true
 
   identity_ids  = [azurerm_user_assigned_identity.cluster.id]
   identity_type = "UserAssigned"
@@ -82,13 +82,13 @@ module "aks_cluster_name" {
   ]
 
   agents_availability_zones = ["1", "2", "3"]
-  
+
   agents_max_count = var.agent_max
   agents_max_pods  = 100
   agents_min_count = 1
   agents_pool_name = "system"
   agents_type      = "VirtualMachineScaleSets"
-  
+
   enable_auto_scaling = true
   # # enable_host_encryption                = true
   http_application_routing_enabled      = var.http_application_routing_enabled
@@ -100,14 +100,56 @@ module "aks_cluster_name" {
   oidc_issuer_enabled                   = var.workload_identity_enabled
   # net_profile_dns_service_ip            = "10.0.0.10"
   # net_profile_service_cidr              = "10.0.0.0/16"
-  network_plugin                        = "azure"
-  network_policy                        = "azure"
-  os_disk_size_gb                       = 30
-  sku_tier                              = var.sku_tier
-  
+  network_plugin  = "azure"
+  network_policy  = "azure"
+  os_disk_size_gb = 30
+  sku_tier        = var.sku_tier
+
   agents_size = var.agent_size
   agents_tags = var.tags
 }
 
 
+resource "azurerm_eventhub_namespace_authorization_rule" "main" {
+  name                = var.prefix
+  namespace_name      = var.eventhub_namespace
+  resource_group_name = var.eventhub_resource_group
 
+  listen = false
+  send   = true
+  manage = false
+}
+
+resource "azurerm_monitor_diagnostic_setting" "main" {
+  name               = "eventhub"
+  target_resource_id = module.aks_cluster_name.aks_id
+
+  eventhub_name                  = var.eventhub_name
+  eventhub_authorization_rule_id = azurerm_eventhub_namespace_authorization_rule.main.id
+
+  enabled_log {
+    category = "cloud-controller-manager"
+  }
+  enabled_log {
+    category = "cluster-autoscaler"
+  }
+  enabled_log {
+    category = "guard"
+  }
+  enabled_log {
+    category = "kube-apiserver"
+  }
+  enabled_log {
+    category = "kube-audit"
+  }
+  enabled_log {
+    category = "kube-audit-admin"
+  }
+  enabled_log {
+    category = "kube-controller-manager"
+  }
+  enabled_log {
+    category = "kube-scheduler"
+  }
+
+}

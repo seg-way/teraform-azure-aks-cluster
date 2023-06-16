@@ -76,3 +76,16 @@ variable "workload_identity_enabled" {
   default = false
   description = "(optional) describe your variable"
 }
+
+variable "eventhub_resource_group" {
+  type = string
+  description = "(optional) describe your variable"
+}
+variable "eventhub_namespace" {
+  type = string
+  description = "(optional) describe your variable"
+}
+variable "eventhub_name" {
+  type = string
+  description = "(optional) describe your variable"
+}
