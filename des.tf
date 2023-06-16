@@ -9,7 +9,7 @@ resource "azurerm_key_vault_key" "des_key" {
   ]
   key_type        = "RSA"
   key_vault_id    = var.vault_id
-  name            = "disk"
+  name            = "diskenc"
   expiration_date = timeadd("${formatdate("YYYY-MM-DD", timestamp())}T00:00:00Z", "168h")
   key_size        = 2048
 
