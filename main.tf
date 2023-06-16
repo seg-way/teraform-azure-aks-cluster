@@ -74,6 +74,8 @@ module "aks_cluster_name" {
   kms_key_vault_key_id         = azurerm_key_vault_key.kms.id
   kms_key_vault_network_access = "Private"
 
+
+
   depends_on = [
     azurerm_role_assignment.kms_seu,
     azurerm_role_assignment.des_seu,
@@ -95,7 +97,7 @@ module "aks_cluster_name" {
   ingress_application_gateway_enabled   = var.ingress_application_gateway_enabled
   ingress_application_gateway_name      = "${var.prefix}-agw"
   ingress_application_gateway_subnet_id = var.subnet_id_ag
-  local_account_disabled                = true
+  local_account_disabled                = false
   workload_identity_enabled             = var.workload_identity_enabled
   oidc_issuer_enabled                   = var.workload_identity_enabled
   # net_profile_dns_service_ip            = "10.0.0.10"
