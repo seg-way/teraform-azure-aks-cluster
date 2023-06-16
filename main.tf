@@ -31,7 +31,7 @@ module "aks_cluster_name" {
 
   prefix               = var.prefix
   resource_group_name  = var.resource_group
-  admin_username       = null
+  # admin_username       = null
   azure_policy_enabled = true
 
   log_analytics_workspace_enabled = false
@@ -73,8 +73,6 @@ module "aks_cluster_name" {
   kms_enabled                  = true
   kms_key_vault_key_id         = azurerm_key_vault_key.kms.id
   kms_key_vault_network_access = "Private"
-
-
 
   depends_on = [
     azurerm_role_assignment.kms_seu,
