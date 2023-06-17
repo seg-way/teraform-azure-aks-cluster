@@ -23,7 +23,19 @@ variable "admins_group_id" {
   type = string
   description = "(optional) describe your variable"
 }
-variable "vault_id" {
+variable "des_vault_id" {
+  type        = string
+  description = "(optional) describe your variable"
+}
+variable "des_vault_key_id" {
+  type        = string
+  description = "(optional) describe your variable"
+}
+variable "kms_vault_id" {
+  type        = string
+  description = "(optional) describe your variable"
+}
+variable "kms_vault_key_id" {
   type        = string
   description = "(optional) describe your variable"
 }

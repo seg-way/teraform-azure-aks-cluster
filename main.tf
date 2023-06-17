@@ -5,9 +5,14 @@ resource "azurerm_user_assigned_identity" "cluster" {
   resource_group_name = var.resource_group
 }
 
+resource "azurerm_role_assignment" "kms_seu" {
+  scope                = var.kms_vault_id
+  role_definition_name = "Key Vault Crypto Officer"
+  principal_id         = azurerm_user_assigned_identity.cluster.principal_id
+}
 
 resource "azurerm_role_assignment" "PrivateEndpointConnectionsApproval" {
-  scope                = var.vault_id
+  scope                = var.kms_vault_id
   role_definition_name = "Key Vault Contributor"
   principal_id         = azurerm_user_assigned_identity.cluster.principal_id
 }
@@ -29,8 +34,8 @@ module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
   version = "6.8.0"
 
-  prefix              = var.prefix
-  resource_group_name = var.resource_group
+  prefix               = var.prefix
+  resource_group_name  = var.resource_group
   admin_username       = null
   azure_policy_enabled = true
 
@@ -71,7 +76,7 @@ module "aks_cluster_name" {
 
   # KMS etcd encryption
   kms_enabled                  = true
-  kms_key_vault_key_id         = azurerm_key_vault_key.kms.id
+  kms_key_vault_key_id         = var.kms_vault_key_id
   kms_key_vault_network_access = "Private"
 
   depends_on = [
