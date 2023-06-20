@@ -35,6 +35,7 @@ output "exec_command" {
   value = "client.authentication.k8s.io/v1beta1"
 }
 output "exec_args" {
+  sensitive = true
   value = [
     "get-token",
     "--login",
