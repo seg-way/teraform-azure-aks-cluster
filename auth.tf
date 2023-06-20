@@ -7,7 +7,7 @@ resource "azuread_application" "automation" {
 resource "azuread_service_principal" "automation" {
   application_id               = azuread_application.automation.application_id
   app_role_assignment_required = true
-  feature_tags = {
+  feature_tags {
     hide = true
   }
 }
