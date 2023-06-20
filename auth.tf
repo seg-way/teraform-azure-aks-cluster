@@ -1,7 +1,6 @@
 
 resource "azuread_application" "automation" {
-  display_name               = "${var.cluster_name}-automation"
-  
+  display_name               = "${var.cluster_name}-automation"  
 }
 
 resource "azuread_service_principal" "automation" {
@@ -10,6 +9,10 @@ resource "azuread_service_principal" "automation" {
   feature_tags {
     hide = true
   }
+}
+resource "azuread_group_member" "managers" {
+  group_object_id  = var.admins_group_id
+  member_object_id = azuread_service_principal.automation.object_id
 }
 
 resource "azuread_service_principal_password" "automation" {
