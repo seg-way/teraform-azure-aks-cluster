@@ -32,7 +32,7 @@ output "exec_api" {
   value = "client.authentication.k8s.io/v1beta1"
 }
 output "exec_command" {
-  value = "client.authentication.k8s.io/v1beta1"
+  value = "kubelogin"
 }
 output "exec_args" {
   sensitive = true
