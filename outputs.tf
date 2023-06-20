@@ -27,3 +27,27 @@ output "ca_certificate" {
   value     = module.aks_cluster_name.admin_cluster_ca_certificate
   sensitive = true
 }
+
+output "exec_api" {
+  value = "client.authentication.k8s.io/v1beta1"
+}
+output "exec_command" {
+  value = "client.authentication.k8s.io/v1beta1"
+}
+output "exec_args" {
+  value = [
+    "get-token",
+    "--login",
+    "spn",
+    "--environment",
+    "AzurePublicCloud",
+    "--tenant-id",
+    data.azurerm_kubernetes_cluster.automation.azure_active_directory_role_based_access_control[0].tenant_id,
+    "--server-id",
+    azuread_service_principal.automation.application_id,
+    "--client-id",
+    azuread_application.automation.application_id,
+    "--client-secret",
+    azuread_service_principal_password.automation.value
+  ]
+}
