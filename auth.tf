@@ -17,6 +17,6 @@ resource "azuread_service_principal_password" "automation" {
 }
 
 data "azurerm_kubernetes_cluster" "automation" {
-  name                = module.aks_cluster_name.cluster_name
+  name                = module.aks_cluster_name.aks_name
   resource_group_name = var.resource_group
 }
