@@ -45,7 +45,7 @@ output "exec_args" {
     "--tenant-id",
     data.azurerm_kubernetes_cluster.automation.azure_active_directory_role_based_access_control[0].tenant_id,
     "--server-id",
-    azuread_service_principal.automation.application_id,
+    "6dae42f8-4368-4678-94ff-3960e28e3630", #Google says this is a constant I'm not sold
     "--client-id",
     azuread_application.automation.application_id,
     "--client-secret",
