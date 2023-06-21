@@ -1,6 +1,6 @@
 
 resource "azuread_application" "automation" {
-  display_name               = "${var.cluster_name}-automation"  
+  display_name = "${var.cluster_name}-automation"
 }
 
 resource "azuread_service_principal" "automation" {
@@ -23,4 +23,5 @@ resource "azuread_service_principal_password" "automation" {
 data "azurerm_kubernetes_cluster" "automation" {
   name                = module.aks_cluster_name.aks_name
   resource_group_name = var.resource_group
+  depends_on          = [module.aks_cluster_name.aks_name]
 }
