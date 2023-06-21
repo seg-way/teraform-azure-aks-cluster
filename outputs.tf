@@ -27,7 +27,10 @@ output "ca_certificate" {
   value     = module.aks_cluster_name.admin_cluster_ca_certificate
   sensitive = true
 }
-
+output "exec_host" {
+  value     = module.aks_cluster_name.admin_host
+  sensitive = true
+}
 output "exec_api" {
   value = "client.authentication.k8s.io/v1beta1"
 }
