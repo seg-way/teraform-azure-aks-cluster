@@ -5,17 +5,6 @@ resource "azurerm_user_assigned_identity" "cluster" {
   resource_group_name = var.resource_group
 }
 
-resource "azurerm_role_assignment" "kms_seu" {
-  scope                = var.kms_vault_id
-  role_definition_name = "Key Vault Crypto Officer"
-  principal_id         = azurerm_user_assigned_identity.cluster.principal_id
-}
-
-resource "azurerm_role_assignment" "PrivateEndpointConnectionsApproval" {
-  scope                = var.kms_vault_id
-  role_definition_name = "Key Vault Contributor"
-  principal_id         = azurerm_user_assigned_identity.cluster.principal_id
-}
 
 resource "azurerm_role_assignment" "aks_subnet" {
   scope                = var.subnet_id
@@ -46,8 +35,6 @@ module "aks_cluster_name" {
 
   cluster_name = var.cluster_name
 
-  disk_encryption_set_id = azurerm_disk_encryption_set.des.id
-
   public_network_access_enabled = true
 
   identity_ids  = [azurerm_user_assigned_identity.cluster.id]
@@ -74,15 +61,7 @@ module "aks_cluster_name" {
     var.admins_group_id
   ]
 
-  # KMS etcd encryption
-  kms_enabled                  = true
-  kms_key_vault_key_id         = var.kms_vault_key_id
-  kms_key_vault_network_access = "Private"
-
   depends_on = [
-    azurerm_role_assignment.kms_seu,
-    azurerm_role_assignment.des_seu,
-    azurerm_role_assignment.PrivateEndpointConnectionsApproval,
     azurerm_role_assignment.aks_subnet
   ]
 

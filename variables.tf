@@ -23,22 +23,6 @@ variable "admins_group_id" {
   type = string
   description = "(optional) describe your variable"
 }
-variable "des_vault_id" {
-  type        = string
-  description = "(optional) describe your variable"
-}
-variable "des_vault_key_id" {
-  type        = string
-  description = "(optional) describe your variable"
-}
-variable "kms_vault_id" {
-  type        = string
-  description = "(optional) describe your variable"
-}
-variable "kms_vault_key_id" {
-  type        = string
-  description = "(optional) describe your variable"
-}
 variable "subnet_id" {
   type        = string
   description = "(optional) describe your variable"
@@ -59,7 +43,7 @@ variable "agent_max" {
 
 variable "kubernetes_version" {
   type        = string
-  default     = "1.26"
+  default     = "1.27"
   description = "(optional) describe your variable"
 }
 variable "ingress_application_gateway_enabled" {
