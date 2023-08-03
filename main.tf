@@ -71,6 +71,7 @@ module "aks_cluster_name" {
   agents_max_pods  = 100
   agents_min_count = 1
   agents_pool_name = "system"
+  temporary_name_for_rotation = "system2"
   agents_type      = "VirtualMachineScaleSets"
 
   enable_auto_scaling = true
