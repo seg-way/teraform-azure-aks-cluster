@@ -85,3 +85,8 @@ variable "eventhub_name" {
   type = string
   description = "(optional) describe your variable"
 }
+
+variable "vnet_subnet_id" {
+  type = string
+  description = "(optional) describe your variable"
+}

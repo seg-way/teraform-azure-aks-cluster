@@ -91,6 +91,8 @@ module "aks_cluster_name" {
 
   agents_size = var.agent_size
   agents_tags = var.tags
+
+  vnet_subnet_id = var.vnet_subnet_id
 }
 
 
