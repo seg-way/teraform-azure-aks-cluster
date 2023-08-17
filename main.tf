@@ -67,6 +67,7 @@ module "aks_cluster_name" {
   workload_identity_enabled             = var.workload_identity_enabled
   oidc_issuer_enabled                   = var.workload_identity_enabled
   # net_profile_dns_service_ip            = "10.0.0.10"
+  dns_service_ip = var.dns_service_ip
   net_profile_service_cidr              = var.service_cidr
   network_plugin  = "azure"
   network_policy  = "azure"
