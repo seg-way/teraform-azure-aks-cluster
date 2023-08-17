@@ -19,8 +19,9 @@ variable "tags" {
   type        = map(string)
   description = "(optional) describe your variable"
 }
-variable "admins_group_id" {
-  type = string
+variable "admins_group_ids" {
+  type = list(string)
+  default = []
   description = "(optional) describe your variable"
 }
 variable "subnet_id" {
@@ -36,8 +37,14 @@ variable "agent_size" {
   type        = string
   description = "(optional) describe your variable"
 }
+variable "agent_min" {
+  type        = number
+  default = 1
+  description = "(optional) describe your variable"
+}
 variable "agent_max" {
   type        = number
+  default = 10
   description = "(optional) describe your variable"
 }
 
@@ -62,10 +69,6 @@ variable "sku_tier" {
   description = "(optional) describe your variable"
 }
 
-variable "registry_id" {
-  type = string  
-  description = "(optional) describe your variable"
-}
 
 variable "workload_identity_enabled" {
   type = bool
@@ -73,15 +76,8 @@ variable "workload_identity_enabled" {
   description = "(optional) describe your variable"
 }
 
-variable "eventhub_resource_group" {
-  type = string
-  description = "(optional) describe your variable"
-}
-variable "eventhub_namespace" {
-  type = string
-  description = "(optional) describe your variable"
-}
-variable "eventhub_name" {
-  type = string
+variable "private_cluster_enabled" {
+  type = bool
+  default = false
   description = "(optional) describe your variable"
 }

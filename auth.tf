@@ -11,11 +11,6 @@ resource "azuread_service_principal" "automation" {
   }
 }
 
-resource "azuread_group_member" "managers" {
-  group_object_id  = var.admins_group_id
-  member_object_id = azuread_service_principal.automation.object_id
-}
-
 resource "azuread_service_principal_password" "automation" {
   service_principal_id = azuread_service_principal.automation.object_id
 }

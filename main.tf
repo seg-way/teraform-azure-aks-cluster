@@ -6,18 +6,6 @@ resource "azurerm_user_assigned_identity" "cluster" {
 }
 
 
-resource "azurerm_role_assignment" "aks_subnet" {
-  scope                = var.subnet_id
-  role_definition_name = "Network Contributor"
-  principal_id         = azurerm_user_assigned_identity.cluster.principal_id
-}
-
-resource "azurerm_role_assignment" "acrpull" {
-  principal_id                     = azurerm_user_assigned_identity.cluster.principal_id
-  role_definition_name             = "AcrPull"
-  scope                            = var.registry_id
-  skip_service_principal_aad_check = true
-}
 
 module "aks_cluster_name" {
   source  = "Azure/aks/azurerm"
@@ -51,25 +39,20 @@ module "aks_cluster_name" {
   }
 
   # net_profile_pod_cidr              = "10.1.0.0/16"
-  private_cluster_enabled           = false
+  private_cluster_enabled           = var.private_cluster_enabled
   rbac_aad                          = true
   rbac_aad_managed                  = true
   role_based_access_control_enabled = true
 
 
-  rbac_aad_admin_group_object_ids = [
-    var.admins_group_id
-  ]
+  rbac_aad_admin_group_object_ids = var.admins_group_ids
 
-  depends_on = [
-    azurerm_role_assignment.aks_subnet
-  ]
 
   agents_availability_zones = ["1", "2", "3"]
 
   agents_max_count = var.agent_max
   agents_max_pods  = 100
-  agents_min_count = 1
+  agents_min_count = var.agent_min
   agents_pool_name = "system"
   temporary_name_for_rotation = "system2"
   agents_type      = "VirtualMachineScaleSets"
@@ -96,47 +79,3 @@ module "aks_cluster_name" {
   vnet_subnet_id = var.subnet_id
 }
 
-
-resource "azurerm_eventhub_namespace_authorization_rule" "main" {
-  name                = var.prefix
-  namespace_name      = var.eventhub_namespace
-  resource_group_name = var.eventhub_resource_group
-
-  listen = false
-  send   = true
-  manage = false
-}
-
-resource "azurerm_monitor_diagnostic_setting" "main" {
-  name               = "eventhub"
-  target_resource_id = module.aks_cluster_name.aks_id
-
-  eventhub_name                  = var.eventhub_name
-  eventhub_authorization_rule_id = azurerm_eventhub_namespace_authorization_rule.main.id
-
-  enabled_log {
-    category = "cloud-controller-manager"
-  }
-  enabled_log {
-    category = "cluster-autoscaler"
-  }
-  enabled_log {
-    category = "guard"
-  }
-  enabled_log {
-    category = "kube-apiserver"
-  }
-  enabled_log {
-    category = "kube-audit"
-  }
-  enabled_log {
-    category = "kube-audit-admin"
-  }
-  enabled_log {
-    category = "kube-controller-manager"
-  }
-  enabled_log {
-    category = "kube-scheduler"
-  }
-
-}
