@@ -81,6 +81,11 @@ variable "private_cluster_enabled" {
   default = false
   description = "(optional) describe your variable"
 }
+variable "dns_service_ip" {
+  type = string
+  default = "10.0.0.10"
+  description = "(optional) describe your variable"
+}
 
 variable "service_cidr" {
   type = string
