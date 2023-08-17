@@ -81,3 +81,9 @@ variable "private_cluster_enabled" {
   default = false
   description = "(optional) describe your variable"
 }
+
+variable "service_cidr" {
+  type = string
+  default = "10.0.0.0/16"
+  description = "(optional) describe your variable"
+}
