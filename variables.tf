@@ -92,3 +92,9 @@ variable "service_cidr" {
   default = "10.0.0.0/16"
   description = "(optional) describe your variable"
 }
+
+variable "rbac_aad_tenant_id" {
+  type = string
+  default = null
+  description = "(optional) describe your variable"
+}

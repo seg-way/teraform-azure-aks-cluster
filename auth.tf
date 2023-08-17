@@ -20,3 +20,4 @@ data "azurerm_kubernetes_cluster" "automation" {
   resource_group_name = var.resource_group
   depends_on          = [module.aks_cluster_name.aks_name]
 }
+
