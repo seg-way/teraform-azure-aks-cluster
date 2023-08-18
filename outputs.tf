@@ -1,6 +1,9 @@
 output "name" {
   value = module.aks_cluster_name.aks_name
 }
+output "id" {
+  value = module.aks_cluster_name.aks_id
+}
 output "admin_host" {
   value     = module.aks_cluster_name.admin_host
   sensitive = true
