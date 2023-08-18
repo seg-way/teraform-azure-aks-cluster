@@ -21,3 +21,8 @@ data "azurerm_kubernetes_cluster" "automation" {
   depends_on          = [module.aks_cluster_name.aks_name]
 }
 
+
+resource "azuread_group_member" "managers" {
+  group_object_id  = var.admins_group_id
+  member_object_id = azuread_service_principal.automation.object_id
+}
