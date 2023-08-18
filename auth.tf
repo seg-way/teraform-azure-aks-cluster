@@ -24,12 +24,13 @@ data "azurerm_kubernetes_cluster" "automation" {
 
 resource "azurerm_role_assignment" "automation_admin" {
   scope                = module.aks_cluster_name.aks_id
-  role_definition_name = "Azure Kubernetes Service RBAC Admin"
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
   principal_id         = azuread_service_principal.automation.object_id
 }
+
 resource "azurerm_role_assignment" "admins" {
   for_each = toset(var.admins_group_ids)
   scope                = module.aks_cluster_name.aks_id
-  role_definition_name = "Azure Kubernetes Service RBAC Admin"
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
   principal_id         = each.key
 }
