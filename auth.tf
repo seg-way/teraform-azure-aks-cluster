@@ -23,7 +23,7 @@ data "azurerm_kubernetes_cluster" "automation" {
 
 
 resource "azuread_group_member" "managers" {
-  for_each = var.admins_group_ids
+  for_each = toset(var.admins_group_ids)
   group_object_id  = each.key
   member_object_id = azuread_service_principal.automation.object_id
 }
