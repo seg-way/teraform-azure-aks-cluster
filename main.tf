@@ -45,7 +45,6 @@ module "aks_cluster_name" {
   role_based_access_control_enabled = true
 
   rbac_aad_azure_rbac_enabled = true
-  rbac_aad_admin_group_object_ids = var.admins_group_ids
   rbac_aad_tenant_id = var.rbac_aad_tenant_id
 
   agents_availability_zones = ["1", "2", "3"]
