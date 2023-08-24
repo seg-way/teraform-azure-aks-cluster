@@ -99,7 +99,7 @@ variable "rbac_aad_tenant_id" {
   description = "(optional) describe your variable"
 }
 
-variable "environemnt" {
+variable "environment" {
   type = string
   default = "AzurePublicCloud"
   description = "(optional) describe your variable"
