@@ -47,7 +47,7 @@ output "exec_args" {
     "--login",
     "spn",
     "--environment",
-    "AzurePublicCloud",
+    var.environment,
     "--tenant-id",
     data.azurerm_kubernetes_cluster.automation.azure_active_directory_role_based_access_control[0].tenant_id,
     "--server-id",
