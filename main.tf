@@ -50,7 +50,7 @@ module "aks_cluster_name" {
   agents_availability_zones = ["1", "2", "3"]
 
   agents_max_count = var.agent_max
-  agents_max_pods  = 100
+  agents_max_pods  = 30
   agents_min_count = var.agent_min
   agents_pool_name = "system"
   temporary_name_for_rotation = "system2"
