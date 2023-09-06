@@ -8,7 +8,7 @@ resource "azurerm_user_assigned_identity" "cluster" {
 
 
 module "aks_cluster_name" {
-  source  = "kubec"
+  source  = "Azure/aks/azurerm"
   version = "7.2.0"
 
   prefix               = var.prefix
