@@ -104,3 +104,9 @@ variable "environment" {
   default = "AzurePublicCloud"
   description = "(optional) describe your variable"
 }
+
+variable "api_server_authorized_ip_ranges" {
+  type        = set(string)
+  default     = null
+  description = "(Optional) The IP ranges to allow for incoming traffic to the server nodes."
+}

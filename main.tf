@@ -8,7 +8,7 @@ resource "azurerm_user_assigned_identity" "cluster" {
 
 
 module "aks_cluster_name" {
-  source  = "Azure/aks/azurerm"
+  source  = "kubec"
   version = "7.2.0"
 
   prefix               = var.prefix
@@ -23,7 +23,8 @@ module "aks_cluster_name" {
 
   cluster_name = var.cluster_name
 
-  public_network_access_enabled = true
+  public_network_access_enabled   = true
+  api_server_authorized_ip_ranges = var.api_server_authorized_ip_ranges
 
   identity_ids  = [azurerm_user_assigned_identity.cluster.id]
   identity_type = "UserAssigned"
@@ -45,16 +46,16 @@ module "aks_cluster_name" {
   role_based_access_control_enabled = true
 
   rbac_aad_azure_rbac_enabled = true
-  rbac_aad_tenant_id = var.rbac_aad_tenant_id
+  rbac_aad_tenant_id          = var.rbac_aad_tenant_id
 
   agents_availability_zones = ["1", "2", "3"]
 
-  agents_max_count = var.agent_max
-  agents_max_pods  = 30
-  agents_min_count = var.agent_min
-  agents_pool_name = "system"
+  agents_max_count            = var.agent_max
+  agents_max_pods             = 30
+  agents_min_count            = var.agent_min
+  agents_pool_name            = "system"
   temporary_name_for_rotation = "system2"
-  agents_type      = "VirtualMachineScaleSets"
+  agents_type                 = "VirtualMachineScaleSets"
 
   enable_auto_scaling = true
   # # enable_host_encryption                = true
@@ -65,10 +66,10 @@ module "aks_cluster_name" {
   local_account_disabled                = false
   workload_identity_enabled             = var.workload_identity_enabled
   oidc_issuer_enabled                   = var.workload_identity_enabled
-  
+
   net_profile_dns_service_ip = var.dns_service_ip
-  net_profile_service_cidr              = var.service_cidr
-  
+  net_profile_service_cidr   = var.service_cidr
+
   network_plugin  = "azure"
   network_policy  = "azure"
   os_disk_size_gb = 30
