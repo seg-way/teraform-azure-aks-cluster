@@ -110,3 +110,9 @@ variable "api_server_authorized_ip_ranges" {
   default     = null
   description = "(Optional) The IP ranges to allow for incoming traffic to the server nodes."
 }
+
+variable "public_network_access_enabled" {
+  type = bool
+  default = true
+  description = "(optional) describe your variable"
+}
