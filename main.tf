@@ -23,7 +23,7 @@ module "aks_cluster_name" {
 
   cluster_name = var.cluster_name
 
-  api_server_authorized_ip_ranges = public_network_access_enabled ? [] : var.api_server_authorized_ip_ranges
+  api_server_authorized_ip_ranges = var.public_network_access_enabled ? [] : var.api_server_authorized_ip_ranges
 
   identity_ids  = [azurerm_user_assigned_identity.cluster.id]
   identity_type = "UserAssigned"
